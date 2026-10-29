@@ -1,0 +1,416 @@
+:root {
+    --color-bg: #F5F0E8;
+    --color-card-border: #d8cdbb;
+    --color-maroon: #7a1c34;
+    --color-maroon-dark: #5f1527;
+    --color-text: #2b2621;
+    --color-text-muted: #6b6259;
+    --color-input-border: #cfc4b3;
+    --color-white: #ffffff;
+    --radius-input: 6px;
+    --radius-btn: 6px;
+    --max-width: 760px;
+}
+
+/* ============================================
+   DECLARACIÓN DE FUENTES LOCALES (GMX & MONTSERRAT)
+   ============================================ */
+
+/* Fuente GMX (Para Títulos y Subtítulos) */
+@font-face {
+    font-family: 'gmx';
+    src: url('../fonts/gmx/GMX-Light.otf') format('opentype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'gmx';
+    src: url('../fonts/gmx/GMX-Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'gmx';
+    src: url('../fonts/gmx/GMX-Bold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'gmx';
+    src: url('../fonts/gmx/GMX-Black.otf') format('opentype');
+    font-weight: 900;
+    font-style: normal;
+}
+
+/* Fuente Montserrat (Para Cuerpo de Texto / Texto Normal)
+   *Nota: Ajusta la ruta si tu carpeta se llama diferente, ej: '../fonts/montserrat/montserrat-regular.ttf'* */
+@font-face {
+    font-family: 'montserrat';
+    src: url('../fonts/montserrat/Montserrat-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'montserrat';
+    src: url('../fonts/montserrat/Montserrat-SemiBold.otf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'montserrat';
+    src: url('../fonts/montserrat/Montserrat-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: 'montserrat', sans-serif; /* Texto normal en Montserrat */
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Forzar que todos los títulos principales y subtítulos usen GMX */
+h1, h2, h3, h4, h5, h6, 
+.login-title, .dashboard-title, .page-main-title, .section-title {
+    font-family: 'gmx', serif !important;
+}
+
+.login-shell {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 20px;
+}
+
+.login-card {
+    width: 100%;
+    max-width: var(--max-width);
+}
+
+/* Header / logos */
+.login-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+}
+
+.login-header img {
+    height: 44px;
+    width: auto;
+    margin-right: auto;
+}
+
+.login-header .divider {
+    width: 1px;
+    height: 36px;
+    background: var(--color-card-border);
+}
+
+.title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 18px;
+}
+
+.title-deco {
+    height: 40px;
+    width: auto;
+    flex-shrink: 0;
+}
+
+.login-title {
+    font-family: 'gmx', serif;
+    font-size: 56px;
+    line-height: 1.05;
+    margin: 0;
+    font-weight: 900;
+    text-align: center;
+}
+
+.login-subtitle {
+    margin: 0 0 32px 0;
+    color: var(--color-text-muted);
+    font-size: 15px;
+    text-align: center;
+}
+
+/* Form */
+.form-group {
+    margin-bottom: 22px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.input-wrap {
+    position: relative;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--color-input-border);
+    border-radius: var(--radius-input);
+    background: var(--color-white);
+    font-size: 15px;
+    color: var(--color-text);
+    outline: none;
+    transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+.form-group input::placeholder {
+    color: #a89f92;
+}
+
+.form-group input:focus {
+    border-color: var(--color-maroon);
+    box-shadow: 0 0 0 3px rgba(122, 28, 52, 0.12);
+}
+
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    color: var(--color-text-muted);
+    display: flex;
+    align-items: center;
+}
+
+.toggle-password svg {
+    width: 20px;
+    height: 20px;
+}
+
+.toggle-password .icon-off {
+    display: none;
+}
+
+.toggle-password.is-visible .icon-on {
+    display: none;
+}
+
+.toggle-password.is-visible .icon-off {
+    display: block;
+}
+
+.forgot-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 24px;
+}
+
+.forgot-row a,
+.signup-row a {
+    color: var(--color-maroon);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.forgot-row a:hover,
+.signup-row a:hover {
+    text-decoration: underline;
+}
+
+.error-msg {
+    min-height: 20px;
+    color: #b3261e;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 14px 16px;
+    background: var(--color-maroon);
+    color: var(--color-white);
+    border: none;
+    border-radius: var(--radius-btn);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .15s ease, opacity .15s ease;
+}
+
+.btn-submit:hover {
+    background: var(--color-maroon-dark);
+}
+
+.btn-submit:disabled {
+    opacity: .7;
+    cursor: default;
+}
+
+.signup-row {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 14px;
+    color: var(--color-text);
+}
+
+/* Footer */
+.login-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding: 20px 32px;
+    border-top: 1px solid var(--color-card-border);
+    font-size: 13px;
+    color: var(--color-text-muted);
+}
+
+.login-footer .footer-links {
+    display: flex;
+    gap: 24px;
+}
+
+.login-footer a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+}
+
+.login-footer a:hover {
+    text-decoration: underline;
+}
+
+.login-footer .footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.login-footer .footer-brand img {
+    height: 34px;
+}
+
+.login-footer .footer-brand strong {
+    display: block;
+    font-size: 12px;
+    line-height: 1.3;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .login-title {
+        font-size: 38px;
+    }
+
+    .login-footer {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+.filtro-card input[type="radio"] {
+    accent-color: #691B31;
+}
+
+#num_consecutivo{
+    text-transform: uppercase;
+}
+
+.table-responsive {
+    overflow-x: auto;
+    border-radius: 8px;
+}
+
+.table th {
+    white-space: nowrap;
+    vertical-align: middle;
+    font-size: 12px;
+    font-weight: 600;
+    color: #333333;
+    background-color: #f4f1ee;
+    padding: 12px 10px;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.table td {
+    vertical-align: middle;
+    font-size: 13px;
+    padding: 10px;
+}
+
+.table th:nth-child(5),
+.table td:nth-child(5) {
+    min-width: 300px;
+    max-width: 400px;
+    white-space: normal !important;
+    word-break: break-word;
+    text-align: center;
+}
+
+.table th,
+.table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+#main-title {
+    text-transform: capitalize;
+}
+
+.navbar-brand {
+    height: 45px;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-brand img {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+}
+
+#tabla-desglose-top-body tr td:nth-child(2),
+#tabla-municipios-body tr td:nth-child(2) {
+    text-transform: capitalize;
+}
+
+.editable-input, 
+#detalle-nombre, 
+#detalle-puesto, 
+#detalle-cargo-unidad, 
+#detalle-institucion,
+#detalle-municipio,
+#detalle-localidad {
+    text-transform: none;
+}
+
+#detalle-sector{
+    text-transform:capitalize;
+}

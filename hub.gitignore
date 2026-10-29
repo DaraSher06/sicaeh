@@ -1,0 +1,9 @@
+# ignorar variables de entorno con credenciales
+.env
+.env.local
+
+# ignorar dependencias instaladas por composer
+/agencia_backend/vendor/
+
+# ignorar archivos subidos por usuarios (opcional, según tu caso)
+uploads/

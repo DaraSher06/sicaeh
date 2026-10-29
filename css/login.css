@@ -1,0 +1,24 @@
+/* ============================================
+   Estilos específicos de Login / Títulos GMX
+   ============================================ */
+
+/* Aseguramos que los elementos principales de acceso usen GMX correctamente */
+.login-title {
+    font-family: 'gmx', serif;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+}
+
+.login-subtitle,
+.error-msg {
+    font-family: 'gmx', serif;
+    font-weight: 300;
+}
+
+.form-group label,
+.forgot-row a,
+.signup-row a,
+.btn-submit {
+    font-family: 'gmx', serif;
+    font-weight: 700;
+}

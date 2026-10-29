@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta General de Expedientes · SICAEH</title>
+    <!-- bootstrap css -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="icon" type="image/x-icon" href="Dorado.png">
+</head>
+<body>
+    <div class="app">
+
+        <!-- navbar -->
+        <header class="navbar">
+            <div class="navbar-brand">
+                <img src="img/Hidalgo_Economia_AEEH.png" alt="Hidalgo · Economía · AEEH">
+            </div>
+
+            <nav>
+                <ul class="navbar-links">
+                    <li><a href="dashboard.html">Inicio</a></li>
+                    <li><a href="dashboard.html" class="is-active">Trámites</a></li>
+                    <li><a href="calendario.html">Calendario</a></li>
+                    <li><a href="directorio.html">Directorio</a></li>
+                    <li><a href="ayuda.html">Ayuda</a></li>
+                </ul>
+            </nav>
+
+            <div class="navbar-actions">
+                <button type="button" class="notif-btn" id="notif-btn" aria-label="Notificaciones">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                    <span class="notif-badge">3</span>
+                </button>
+
+                <div class="dropdown">
+                    <div class="navbar-user d-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
+                        <!-- círculo del avatar -->
+                        <div class="avatar" id="user-iniciales">--</div>
+                        <div class="user-meta">
+                            <!-- nombre principal -->
+                            <span id="user-nombre">cargando...</span>
+
+                            <!-- ubicación -->
+                            <span id="user-ubicacion">cargando...</span>
+                        </div>
+                    </div>
+                    <ul class="dropdown-menu dropdown-menu-end shadow border-0 py-2 mt-2" style="border-radius: 12px; min-width: 180px;">
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center gap-2 text-danger py-2 fw-semibold" href="#" onclick="cerrar_sesion()" style="color: #691b31;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                                Cerrar Sesión
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+
+        <!-- main content -->
+        <main class="registro-container py-4 px-3 px-md-5 container-fluid" style="max-width: 1600px;">
+            <div class="breadcrumb-trail mb-2">
+                <a href="dashboard.html" class="text-decoration-none text-muted">Inicio</a> <span class="mx-1">› <a href="dashboard.html" class="text-decoration-none text-muted">Trámites</a><span class="mx-1">›</span> <span class="fw-semibold" style="color: #691B31;">Expedientes</span>
+            </div>
+            
+            <h1 class="page-main-title mb-4" style="font-family: 'GMX', serif; font-weight: 900; font-size: 36px; color: #111111;">Expedientes</h1>
+
+            <!-- Barra de búsqueda general -->
+            <div class="input-group bg-white rounded-3 border mb-4 shadow-sm" style="border-radius: 8px !important; padding: 4px;">
+                <input type="text" id="input-busqueda" class="form-control bg-transparent border-0 shadow-none text-dark ps-3" placeholder="Buscar por número de oficio o turno AEEH" style="font-size: 14px;">
+                <span class="input-group-text bg-transparent border-0 text-muted px-3">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                </span>
+            </div>
+
+            <!-- Filtros de pestañas por estatus -->
+            <div class="d-flex gap-3 mb-4 flex-wrap">
+                <div class="form-check border rounded-pill px-3 py-2 m-0 bg-white shadow-sm d-flex align-items-center gap-2 filtro-card" data-filtro="todos" style="border-color: #691B31 !important; cursor: pointer;">
+                    <input class="form-check-input m-0" type="radio" name="filtro_estado" id="filtro_todos" checked>
+                    <label class="form-check-label small fw-bold text-dark cursor-pointer m-0" for="filtro_todos">Todos</label>
+                </div>
+                <div class="form-check border rounded-pill px-3 py-2 m-0 bg-white d-flex align-items-center gap-2 filtro-card" data-filtro="turnado" style="border-color: #dee2e6 !important; cursor: pointer;">
+                    <input class="form-check-input m-0" type="radio" name="filtro_estado" id="filtro_turnado">
+                    <label class="form-check-label small fw-bold text-dark cursor-pointer m-0 d-flex align-items-center gap-1" for="filtro_turnado">
+                        <span class="rounded-circle d-inline-block" style="width: 6px; height: 6px; background-color: #226C62;"></span> Turnado
+                    </label>
+                </div>
+                <div class="form-check border rounded-pill px-3 py-2 m-0 bg-white d-flex align-items-center gap-2 filtro-card" data-filtro="proceso" style="border-color: #dee2e6 !important; cursor: pointer;">
+                    <input class="form-check-input m-0" type="radio" name="filtro_estado" id="filtro_proceso">
+                    <label class="form-check-label small fw-bold text-dark cursor-pointer m-0 d-flex align-items-center gap-1" for="filtro_proceso">
+                        <span class="rounded-circle d-inline-block" style="width: 6px; height: 6px; background-color: #ffc107;"></span> En Proceso
+                    </label>
+                </div>
+                <div class="form-check border rounded-pill px-3 py-2 m-0 bg-white d-flex align-items-center gap-2 filtro-card" data-filtro="atendido" style="border-color: #dee2e6 !important; cursor: pointer;">
+                    <input class="form-check-input m-0" type="radio" name="filtro_estado" id="filtro_atendido">
+                    <label class="form-check-label small fw-bold text-dark cursor-pointer m-0 d-flex align-items-center gap-1" for="filtro_atendido">
+                        <span class="rounded-circle d-inline-block" style="width: 6px; height: 6px; background-color: #198754;"></span> Atendido
+                    </label>
+                </div>
+                <div class="form-check border rounded-pill px-3 py-2 m-0 bg-white d-flex align-items-center gap-2 filtro-card" data-filtro="cerrado" style="border-color: #dee2e6 !important; cursor: pointer;">
+                    <input class="form-check-input m-0" type="radio" name="filtro_estado" id="filtro_cerrado">
+                    <label class="form-check-label small fw-bold text-dark cursor-pointer m-0 d-flex align-items-center gap-1" for="filtro_cerrado">
+                        <span class="rounded-circle d-inline-block" style="width: 6px; height: 6px; background-color: #dc3545;"></span> Cerrado
+                    </label>
+                </div>
+            </div>
+
+            <!-- Contenedor Principal de la Tabla de Expedientes -->
+            <div class="card p-4 shadow-sm border-0 mb-5" style="border-radius: 16px; border-top: 6px solid #691B31; background: #FFFFFF; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;">
+                
+                <div class="mb-3 pb-3 border-bottom">
+                    <h2 class="section-title m-0" style="font-family: 'GMX', serif; font-weight: 700; font-size: 22px; color: #691B31;">Consulta General de Expedientes</h2>
+                </div>
+
+                <!-- Filtros avanzados superiores de la tabla -->
+                <div class="row g-3 align-items-center mb-4 pb-3 border-bottom">
+                    <div class="col-md-3">
+                        <select id="filtro-tipo-solicitud" class="form-select text-muted shadow-none" style="font-size: 13px; border-radius: 8px;">
+                            <option value="">Tipo de solicitud</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select id="filtro-enviado-a" class="form-select text-muted shadow-none" style="font-size: 13px; border-radius: 8px;">
+                            <option value="">Enviado a...</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="date" id="filtro-fecha-limite" class="form-control text-muted shadow-none" style="font-size: 13px; border-radius: 8px;" placeholder="Fecha límite">
+                    </div>
+                    <div class="col-md-3">
+                        <select id="filtro-turnado-a" class="form-select text-muted shadow-none" style="font-size: 13px; border-radius: 8px;">
+                            <option value="">Turnado a...</option>
+                        </select>
+                    </div>
+                    <div class="col-md-1 text-end">
+                        <button type="button" id="btn-aplicar-filtros" class="btn text-white w-100 fw-semibold" style="background-color: #691B31; border-radius: 8px; font-size: 13px;">Aplicar</button>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table align-middle mb-4" style="font-size: 13px; width: 100%;">
+                        <thead>
+                            <tr class="text-muted border-bottom text-center">
+                                <th scope="col" class="pb-3 fw-semibold" style="width: 8%;">Número Consecutivo</th>
+                                <th scope="col" class="pb-3 fw-semibold" style="width: 8%;">Número de Oficio</th>
+                                <th scope="col" class="pb-3 fw-semibold" style="width: 7%;">Número de Turno AEEH</th>
+                                <th scope="col" class="pb-3 fw-semibold text-start ps-3" style="width: 18%;">Asunto</th>
+                                <th scope="col" class="pb-3 fw-semibold" style="width: 10%;">Remitente</th>
+                                <th scope="col" class="pb-3 fw-semibold" style="width: 8%;">Enviado a</th>
+                                <th scope="col" class="pb-3 fw-semibold" style="width: 7%;">Prioridad</th>
+                                <th scope="col" class="pb-3 fw-semibold" style="width: 9%;">Turnado a...</th>
+                                <th scope="col" class="pb-3 fw-semibold" style="width: 8%;">Estatus de Oficio</th>
+                                <th scope="col" class="pb-3 fw-semibold" style="width: 8%;">Fecha de Captura</th>
+                                <th scope="col" class="pb-3 fw-semibold" style="width: 8%;">Fecha de Límite</th>
+                                <th scope="col" class="pb-3 fw-semibold" style="width: 6%;">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody class="border-0" id="tabla-expedientes-body">
+                            <!-- Los registros se cargan dinámicamente mediante JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Paginación dinámica -->
+                <div class="d-flex justify-content-end align-items-center pt-3 border-top gap-2 text-white" id="paginacion-container"></div>
+
+            </div>
+        </main>
+
+        <!-- footer -->
+        <footer class="app-footer">
+            <span>© 2026 Agencia Estatal de Energía de Hidalgo. Todos los derechos reservados.</span>
+            <div class="footer-brand">
+                <img src="img/Armas.png" alt="">
+            </div>
+            <div class="footer-links">
+                <a href="aviso-privacidad.html">Aviso de Privacidad</a>
+                <a href="terminos.html">Términos de Uso</a>
+            </div>
+            <div class="footer-brand">
+                <img src="img/dpie.png" alt="Dirección de Proyectos e Infraestructura Energética">
+            </div>
+        </footer>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/expedientes.js"></script>
+</body>
+</html>

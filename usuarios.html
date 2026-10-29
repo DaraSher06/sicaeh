@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Usuarios · SICAEH</title>
+    <!-- bootstrap css -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="icon" type="image/x-icon" href="Dorado.png">
+</head>
+<body>
+    <div class="app">
+
+        <!-- navbar -->
+        <header class="navbar">
+            <div class="navbar-brand">
+                <img src="img/hidalgo_economia_aeeh.png" alt="hidalgo · economía · aeeh">
+            </div>
+
+            <nav>
+                <ul class="navbar-links">
+                    <li><a href="dashboard.html">Inicio</a></li>
+                    <li><a href="dashboard.html" class="is-active">Trámites</a></li>
+                    <li><a href="calendario.html">Calendario</a></li>
+                    <li><a href="directorio.html">Directorio</a></li>
+                    <li><a href="ayuda.html">Ayuda</a></li>
+                </ul>
+            </nav>
+
+            <div class="navbar-actions">
+                <button type="button" class="notif-btn" id="notif-btn" aria-label="Notificaciones">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                    <span class="notif-badge">3</span>
+                </button>
+
+                <div class="dropdown">
+                    <div class="navbar-user d-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
+                        <!-- círculo del avatar -->
+                        <div class="avatar" id="user-iniciales">--</div>
+                        <div class="user-meta">
+                            <!-- nombre principal -->
+                            <span id="user-nombre">cargando...</span>
+
+                            <!-- ubicación -->
+                            <span id="user-ubicacion">cargando...</span>
+                        </div>
+                    </div>
+                    <ul class="dropdown-menu dropdown-menu-end shadow border-0 py-2 mt-2" style="border-radius: 12px; min-width: 180px;">
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center gap-2 text-danger py-2 fw-semibold" href="#" onclick="cerrar_sesion()" style="color: #691b31;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                                Cerrar Sesión
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+
+        <!-- main content -->
+        <main class="registro-container py-4 px-4 px-md-5">
+            <div class="breadcrumb-trail mb-2">
+                <a href="dashboard.html" class="text-decoration-none text-muted">Inicio</a> <span class="mx-1">›</span> <span class="fw-semibold" style="color: #691b31;">Usuarios</span>
+            </div>
+            
+            <h1 class="page-main-title mb-4" style="font-family: 'gmx', serif; font-weight: 900; font-size: 36px; color: #111111;">Usuarios</h1>
+
+            <div class="card p-4 p-md-5 shadow-sm border-0 mb-5" style="border-radius: 16px; border-top: 6px solid #691b31; background: #ffffff; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;">
+                
+                <div class="mb-4 pb-3 border-bottom">
+                    <h2 class="section-title m-0" style="font-family: 'gmx', serif; font-weight: 700; font-size: 22px; color: #691b31;">Lista de Usuarios</h2>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table align-middle" id="tabla-usuarios">
+                        <thead>
+                            <tr class="text-muted small border-bottom">
+                                <th scope="col" class="pb-3 fw-semibold text-dark" style="width: 25%;">Nombre de Usuario</th>
+                                <th scope="col" class="pb-3 fw-semibold text-dark" style="width: 30%;">Correo Electrónico</th>
+                                <th scope="col" class="pb-3 fw-semibold text-dark" style="width: 20%;">Cargo</th>
+                                <th scope="col" class="pb-3 fw-semibold text-dark" style="width: 15%;">Última Actividad</th>
+                                <th scope="col" class="pb-3 fw-semibold text-dark text-center" style="width: 10%;">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- ejemplo estático de una fila con el botón de PDF en acciones -->
+                            <tr>
+                                <td>orlando_majo</td>
+                                <td>orlando.martinez@hidalgo.gob.mx</td>
+                                <td>supervisor</td>
+                                <td>2026-09-28 10:45:29</td>
+                                <td class="text-center">
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <!-- botón de editar -->
+                                        <button class="btn btn-sm btn-outline-primary" title="Editar">
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                                        </button>
+                                        <!-- botón para descargar pdf individual en acciones -->
+                                        <button class="btn btn-sm btn-outline-danger" onclick="generar_pdf_usuario()" title="Descargar PDF">
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="d-flex justify-content-end pt-3 border-top">
+                    <button type="button" class="btn px-4 py-2 text-white fw-semibold" style="background-color: #691b31; border-radius: 8px; font-size: 14px;" onclick="window.location.href='dashboard.html'">Regresar</button>
+                </div>
+
+            </div>
+        </main>
+
+        <!-- modal de edición de usuario -->
+        <div class="modal fade" id="modal-editar-usuario" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content border-0 shadow" style="border-radius: 16px; border-top: 6px solid #691b31;">
+                    <div class="modal-header border-bottom">
+                        <h5 class="modal-title fw-bold" style="font-family: 'gmx', serif; color: #691b31;">Editar Usuario</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body p-4">
+                        <form id="form-editar-usuario">
+                            <input type="hidden" id="edit-id-usuario" name="id_usuario">
+                            
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-4">
+                                    <label class="form-label fw-semibold small">Nombre(s)</label>
+                                    <input type="text" class="form-control" id="edit-nombre" name="nombre" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-semibold small">Apellido Paterno</label>
+                                    <input type="text" class="form-control" id="edit-apellido-paterno" name="apellido_paterno" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-semibold small">Apellido Materno</label>
+                                    <input type="text" class="form-control" id="edit-apellido-materno" name="apellido_materno">
+                                </div>
+                            </div>
+
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold small">Número de Teléfono</label>
+                                    <input type="tel" class="form-control" id="edit-telefono" name="telefono">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold small">Correo Electrónico</label>
+                                    <input type="email" class="form-control" id="edit-correo" name="correo" required>
+                                </div>
+                            </div>
+
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold small">Nombre de Usuario</label>
+                                    <input type="text" class="form-control" id="edit-nombre-usuario" name="nombre_usuario" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold small">Nivel de Acceso (Cargo)</label>
+                                    <select class="form-select" id="edit-cargo" name="cargo" required>
+                                        <option value="" disabled>Seleccione el nivel de acceso</option>
+                                        <option value="administrador">Administrador</option>
+                                        <option value="supervisor">Supervisor</option>
+                                        <option value="capturista">Capturista</option>
+                                        <option value="consulta">Consulta</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold small">Puesto dentro en la Empresa</label>
+                                    <input type="text" class="form-control" id="edit-cargo-real" name="cargo_real" required>
+                                </div>
+                            </div>
+
+                            <div class="row g-3 mb-3 align-items-center">
+                                <div class="col-md-12">
+                                    <div class="form-check form-switch d-flex align-items-center gap-3">
+                                        <input class="form-check-input" type="checkbox" role="switch" id="edit-estado-cuenta" name="activo" style="width: 48px; height: 24px;">
+                                        <label class="form-check-label text-muted small" for="edit-estado-cuenta">Cuenta activa</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-end gap-2 pt-3 border-top">
+                                <button type="button" class="btn btn-outline-secondary px-4" data-bs-dismiss="modal" style="border-radius: 8px;">Cancelar</button>
+                                <button type="submit" class="btn text-white px-4 fw-semibold" style="background-color: #691b31; border-radius: 8px;">Guardar Cambios</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- footer -->
+        <footer class="app-footer">
+            <span>© 2026 Agencia Estatal de Energía de Hidalgo. Todos los derechos reservados.</span>
+            <div class="footer-brand">
+                <img src="img/armas.png" alt="">
+            </div>
+            <div class="footer-links">
+                <a href="aviso-privacidad.html">Aviso de privacidad</a>
+                <a href="terminos.html">Términos de uso</a>
+            </div>
+            <div class="footer-brand">
+                <img src="img/dpie.png" alt="Dirección de Proyectos e Infraestructura Energética">
+            </div>
+        </footer>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- librerías de jsPDF para exportar a PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/usuarios.js"></script>
+    <script src="js/alertas.js"></script>
+</body>
+</html>

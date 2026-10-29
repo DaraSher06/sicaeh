@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reportes · SICAEH</title>
+    <!-- bootstrap css -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="icon" type="image/x-icon" href="Dorado.png">
+</head>
+<body>
+    <div class="app">
+
+        <!-- navbar -->
+        <header class="navbar">
+            <div class="navbar-brand">
+                <img src="img/hidalgo_economia_aeeh.png" alt="hidalgo · economía · aeeh">
+            </div>
+
+            <nav>
+                <ul class="navbar-links">
+                    <li><a href="dashboard.html">Inicio</a></li>
+                    <li><a href="dashboard.html" class="is-active">Trámites</a></li>
+                    <li><a href="calendario.html">Calendario</a></li>
+                    <li><a href="directorio.html">Directorio</a></li>
+                    <li><a href="ayuda.html">Ayuda</a></li>
+                </ul>
+            </nav>
+
+            <div class="navbar-actions">
+                <button type="button" class="notif-btn" id="notif-btn" aria-label="notificaciones">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="m13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                    <span class="notif-badge">3</span>
+                </button>
+
+                <div class="dropdown">
+                    <div class="navbar-user d-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
+                        <div class="avatar" id="user-iniciales">--</div>
+                        <div class="user-meta">
+                            <span id="user-nombre">cargando...</span>
+                            <span id="user-ubicacion">cargando...</span>
+                        </div>
+                    </div>
+                    <ul class="dropdown-menu dropdown-menu-end shadow border-0 py-2 mt-2" style="border-radius: 12px; min-width: 180px;">
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center gap-2 text-danger py-2 fw-semibold" href="#" onclick="cerrar_sesion()" style="color: #691b31;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 21h-4a2 2 0 0 1-2-2v-14a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                                Cerrar Sesión
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+
+        <!-- main content -->
+        <main class="registro-container py-4 px-3 px-md-5 container-fluid" style="max-width: 1600px;">
+            <div class="breadcrumb-trail mb-2">
+                <a href="dashboard.html" class="text-decoration-none text-muted">Inicio</a> <span class="mx-1">›</span> <a href="dashboard.html" class="text-decoration-none text-muted">Trámites</a> <span class="mx-1">›</span> <span class="fw-semibold" style="color: #691B31;">Reportes</span>
+            </div>
+            
+            <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-4">
+                <h1 class="page-main-title m-0" style="font-family: 'gmx', serif; font-weight: 900; font-size: 36px; color: #111111;">Reportes</h1>
+
+                <div id="contenedor-ambito-reporte" class="dropdown d-flex align-items-center gap-2 oculto-por-rol" data-roles="administrador,supervisor,capturista">
+                    <span id="etiqueta-ambito" class="small fw-semibold text-muted">Reporte general</span>
+                    <button class="btn btn-outline-secondary d-flex align-items-center justify-content-center p-2 border-0 shadow-sm" 
+                            type="button" 
+                            id="dropdown-ambito-reporte" 
+                            data-bs-toggle="dropdown" 
+                            aria-expanded="false" 
+                            style="border-radius: 8px; background: #FFFFFF; width: 42px; height: 42px;" 
+                            title="Cambiar ámbito del reporte">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#691B31" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="3" y1="12" x2="21" y2="12"/>
+                            <line x1="3" y1="6" x2="21" y2="6"/>
+                            <line x1="3" y1="18" x2="21" y2="18"/>
+                        </svg>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end shadow border-0 py-2 mt-2" aria-labelledby="dropdown-ambito-reporte" style="border-radius: 12px; padding: 8px;">
+                        <li>
+                            <a class="dropdown-item opcion-ambito active py-2 px-3 rounded-2 fw-semibold" href="#" data-value="general" style="font-size: 14px;">
+                                Reporte General 
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item opcion-ambito py-2 px-3 rounded-2 fw-semibold" href="#" data-value="individual" style="font-size: 14px;">
+                                Mi Reporte Individual
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- pestañas de navegación -->
+            <div class="reportes-tabs-container mb-4" style="border-bottom: 2px solid #e9ecef;">
+                <div class="reportes-tabs-scroll d-flex gap-4 overflow-auto pb-0" style="scrollbar-width: none;">
+                    <button type="button" class="reportes-tab-btn active pb-3 bg-transparent border-0 fw-bold text-nowrap position-relative" data-target="seccion-solicitudes-ingresadas" style="color: #691b31; font-size: 14px;">
+                        Solicitudes Ingresadas
+                        <span class="position-absolute bottom-0 start-0 w-100 bg-danger" style="height: 3px; background-color: #691b31 !important; border-radius: 2px 2px 0 0;"></span>
+                    </button>
+                    <button type="button" class="reportes-tab-btn pb-3 bg-transparent border-0 fw-semibold text-nowrap position-relative text-muted" data-target="seccion-solicitudes-clasificacion" style="font-size: 14px;">
+                        Solicitudes por Clasificación
+                    </button>
+                    <button type="button" class="reportes-tab-btn pb-3 bg-transparent border-0 fw-semibold text-nowrap position-relative text-muted" data-target="seccion-atencion-pueblo" style="font-size: 14px;">
+                        Atención al Pueblo / Otras Instancias
+                    </button>
+                    <button type="button" class="reportes-tab-btn pb-3 bg-transparent border-0 fw-semibold text-nowrap position-relative text-muted" data-target="seccion-cobertura-municipal" style="font-size: 14px;">
+                        Cobertura Municipal en el Estado
+                    </button>
+                    <button type="button" class="reportes-tab-btn pb-3 bg-transparent border-0 fw-semibold text-nowrap position-relative text-muted" data-target="seccion-comportamiento-mensual" style="font-size: 14px;">
+                        Comportamiento Mensual de Solicitudes
+                    </button>
+                    <button type="button" class="reportes-tab-btn pb-3 bg-transparent border-0 fw-semibold text-nowrap position-relative text-muted" data-target="seccion-solicitantes-directos" style="font-size: 14px;">
+                        Beneficiarios Directos
+                    </button>
+                    <button type="button" class="reportes-tab-btn pb-3 bg-transparent border-0 fw-semibold text-nowrap position-relative text-muted" data-target="seccion-beneficiarios-indirectos" style="font-size: 14px;">
+                        Beneficiarios Indirectos
+                    </button>
+                    <button type="button" class="reportes-tab-btn pb-3 bg-transparent border-0 fw-semibold text-nowrap position-relative text-muted" data-target="seccion-otros" style="font-size: 14px;">
+                        Otros
+                    </button>
+                    <button type="button" class="reportes-tab-btn pb-3 bg-transparent border-0 fw-semibold text-nowrap position-relative text-muted" data-target="seccion-oficios-cfe" style="font-size: 14px;">
+                        Gestiones ante CFE
+                    </button>
+                </div>
+            </div>
+
+            <!-- filtro por fechas -->
+            <div class="card border-0 shadow-sm p-3 mb-4" style="border-radius: 16px; background: #ffffff;">
+                <div class="row align-items-center justify-content-between g-3">
+                    <div class="col-12 col-md-auto">
+                        <span class="small fw-bold text-dark">Filtrar resultados por período de fechas:</span>
+                    </div>
+                    <div class="col-12 col-md-auto">
+                        <div class="d-flex align-items-center gap-2 flex-wrap">
+                            <div class="d-flex align-items-center gap-1">
+                                <label class="small text-muted fw-semibold mb-0">Del:</label>
+                                <input type="date" id="fecha-inicio" class="form-control form-control-sm border bg-light text-dark" style="font-size: 13px; border-radius: 8px;">
+                            </div>
+                            <div class="d-flex align-items-center gap-1">
+                                <label class="small text-muted fw-semibold mb-0">Al:</label>
+                                <input type="date" id="fecha-fin" class="form-control form-control-sm border bg-light text-dark" style="font-size: 13px; border-radius: 8px;">
+                            </div>
+                            <button type="button" id="btn-filtrar-fechas" class="btn btn-sm text-white fw-semibold px-3" style="background-color: #691b31; border-radius: 8px; font-size: 13px;">
+                                Aplicar Filtro
+                            </button>
+                            <button type="button" id="btn-limpiar-filtro" class="btn btn-sm btn-outline-secondary fw-semibold px-3" style="border-radius: 8px; font-size: 13px;">
+                                Limpiar
+                            </button>
+                            <button type="button" id="btn-descargar-reporte" class="btn btn-sm btn-outline-dark fw-semibold px-3 d-flex align-items-center gap-1" style="border-radius: 8px; font-size: 13px;">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                Descargar Reporte
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- contenedor dinámico de los reportes -->
+            <div class="reportes-content-container">
+                
+                <!-- vista 1: solicitudes ingresadas -->
+                <div id="seccion-solicitudes-ingresadas" class="reporte-panel active">
+                    <div class="row g-4 mb-4">
+                        <div class="col-12 col-sm-6 col-xl-3">
+                            <div class="report-stat-card card-recibidas shadow-sm h-100 border-0 p-3 d-flex flex-column align-items-center justify-content-center text-center" style="border-left: 5px solid #691b31 !important; border-radius: 12px; background: #ffffff;">
+                                <span class="report-stat-number d-block fw-bold fs-2" style="color: #691b31;">0</span>
+                                <span class="report-stat-label text-muted small fw-semibold text-uppercase">Solicitudes Recibidas</span>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6 col-xl-3">
+                            <div class="report-stat-card card-atendidas shadow-sm h-100 border-0 p-3 d-flex flex-column align-items-center justify-content-center text-center" style="border-left: 5px solid #DDC9A3 !important; border-radius: 12px; background: #ffffff;">
+                                <span class="report-stat-number d-block fw-bold fs-2" style="color: #BC955B;">0</span>
+                                <span class="report-stat-label text-muted small fw-semibold text-uppercase">Solicitudes Atendidas</span>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6 col-xl-3">
+                            <div class="report-stat-card card-proceso shadow-sm h-100 border-0 p-3 d-flex flex-column align-items-center justify-content-center text-center" style="border-left: 5px solid #6F7271 !important; border-radius: 12px; background: #ffffff;">
+                                <span class="report-stat-number d-block fw-bold fs-2" style="color: #98989A;">0</span>
+                                <span class="report-stat-label text-muted small fw-semibold text-uppercase">Solicitudes en Proceso</span>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6 col-xl-3">
+                            <div class="report-stat-card card-municipios shadow-sm h-100 border-0 p-3 d-flex flex-column align-items-center justify-content-center text-center" style="border-left: 5px solid #A02142 !important; border-radius: 12px; background: #ffffff;">
+                                <span class="report-stat-number d-block fw-bold fs-2" style="color: #A02142;">63</span>
+                                <span class="report-stat-label text-muted small fw-semibold text-uppercase">Municipios Atendidos</span>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="row justify-content-center pb-4">
+                        <div class="col-12 col-lg-8 text-center">
+                            <div class="report-chart-container p-3 bg-white shadow-sm rounded-4 border">
+                                <div style="max-width: 380px; height: 320px; margin: 0 auto; position: relative;">
+                                    <canvas id="chart-solicitudes-ingresadas"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- panel de solicitudes por clasificación -->
+                <div id="seccion-solicitudes-clasificacion" class="reporte-panel" style="display: none;">
+                    <div class="row justify-content-center pb-4">
+                        <div class="col-12 col-lg-10 text-center">
+                            <div class="report-chart-container p-4 bg-white shadow-sm rounded-4 border">
+                                <div style="position: relative; width: 100%; height: 550px;">
+                                    <canvas id="chart-solicitudes-clasificacion"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- panel de atención al pueblo -->
+                <div id="seccion-atencion-pueblo" class="reporte-panel" style="display: none;">
+                    <div class="row justify-content-center pb-4">
+                        <div class="col-12 col-lg-10 text-center">
+                            <div class="report-chart-container p-4 bg-white shadow-sm rounded-4 border">
+                                <div style="position: relative; width: 100%; height: 450px;">
+                                    <canvas id="chart-origen-solicitud"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- panel de cobertura municipal -->
+                <div id="seccion-cobertura-municipal" class="reporte-panel" style="display: none;">
+                    <div class="row justify-content-center pb-4">
+                        <div class="col-12 col-lg-10 text-center">
+                            <div class="report-chart-container p-4 bg-white shadow-sm rounded-4 border">
+                                <div style="position: relative; width: 100%; height: 450px;">
+                                    <canvas id="chart-cobertura-municipal"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- panel de comportamiento mensual -->
+                <div id="seccion-comportamiento-mensual" class="reporte-panel" style="display: none;">
+                    <div class="row justify-content-center pb-4">
+                        <div class="col-12 col-lg-10 text-center">
+                            <div class="report-chart-container p-4 bg-white shadow-sm rounded-4 border">
+                                <div style="position: relative; width: 100%; height: 450px;">
+                                    <canvas id="chart-comportamiento-mensual"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- panel de solicitantes directos -->
+                <div id="seccion-solicitantes-directos" class="reporte-panel" style="display: none;">
+                    <div class="row justify-content-center pb-4">
+                        <div class="col-12 col-lg-10 text-center">
+                            <div class="report-chart-container p-4 bg-white shadow-sm rounded-4 border">
+                                <div style="position: relative; width: 100%; height: 450px;">
+                                    <canvas id="chart-solicitantes-directos"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- panel de beneficiarios indirectos -->
+                <div id="seccion-beneficiarios-indirectos" class="reporte-panel" style="display: none;">
+                    <div class="row justify-content-center pb-4">
+                        <div class="col-12 col-lg-10 text-center">
+                            <div class="report-chart-container p-4 bg-white shadow-sm rounded-4 border">
+                                <div style="position: relative; width: 100%; height: 450px;">
+                                    <canvas id="chart-beneficiarios-indirectos"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- panel otros -->
+                <div id="seccion-otros" class="reporte-panel" style="display: none;">
+                    <div class="row g-4 pb-4">
+                        <div class="col-12 col-xl-5">
+                            <div class="p-4 bg-white shadow-sm rounded-4 border h-100">
+                                <div class="d-flex align-items-center justify-content-between mb-3">
+                                    <h6 class="fw-bold mb-0" style="color: #691b31;">Municipio con Mayor Demanda</h6>
+                                    <span id="badge-municipio-top" class="badge text-bg-danger fs-6 px-3 py-2" style="background-color: #691b31 !important;">
+                                        Cargando...
+                                    </span>
+                                </div>
+                                <p class="small text-muted mb-3">Clasificación de solicitudes ingresadas para este municipio:</p>
+
+                                <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">
+                                    <table class="table table-sm table-hover border align-middle mb-0" style="font-size: 13px;">
+                                        <thead class="table-light sticky-top">
+                                            <tr>
+                                                <th>No.</th>
+                                                <th>Clasificación de Solicitud</th>
+                                                <th class="text-center">Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tabla-desglose-top-body"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-xl-7">
+                            <div class="p-4 bg-white shadow-sm rounded-4 border h-100">
+                                <h6 class="fw-bold mb-3" style="color: #691b31;">Solicitudes por Municipio (Estado de Hidalgo)</h6>
+                                <p class="small text-muted mb-3">Desglose acumulado de solicitudes por ayuntamiento:</p>
+
+                                <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">
+                                    <table class="table table-sm table-striped table-hover border align-middle mb-0" style="font-size: 13px;">
+                                        <thead class="table-dark sticky-top">
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Municipio</th>
+                                                <th class="text-center">Solicitudes Ingresadas</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tabla-municipios-body"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card border-0 shadow-sm rounded-4 p-4 mt-2" style="background-color: #f8f9fa;">
+                        <h5 class="fw-bold text-center mb-3" style="color: #691b31; font-family: 'montserrat', sans-serif;">
+                            Solicitudes por Género
+                        </h5>
+                        <div style="position: relative; height: 300px; width: 100%;">
+                            <canvas id="chart-desglose-sexo"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- panel gestiones ante cfe -->
+                <div id="seccion-oficios-cfe" class="reporte-panel" style="display: none;">
+
+                    <!-- tarjetas de métricas -->
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-4">
+                            <div class="card border-0 shadow-sm rounded-4 p-3 text-center" style="border-left: 5px solid #691b31 !important; background-color: #ffffff;">
+                                <h2 class="fw-bold mb-1" id="stat-cfe-total" style="color: #691b31;">0</h2>
+                                <span class="text-muted small text-uppercase fw-semibold" style="letter-spacing: 0.5px;">Oficios Enviados</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card border-0 shadow-sm rounded-4 p-3 text-center" style="border-left: 5px solid #bc955b !important; background-color: #ffffff;">
+                                <h2 class="fw-bold mb-1" id="stat-cfe-respondidos" style="color: #bc955b;">0</h2>
+                                <span class="text-muted small text-uppercase fw-semibold" style="letter-spacing: 0.5px;">Con Respuesta</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card border-0 shadow-sm rounded-4 p-3 text-center" style="border-left: 5px solid #707070 !important; background-color: #ffffff;">
+                                <h2 class="fw-bold mb-1" id="stat-cfe-sin-respuesta" style="color: #707070;">0</h2>
+                                <span class="text-muted small text-uppercase fw-semibold" style="letter-spacing: 0.5px;">Sin Respuesta</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- contenedor principal de cfe -->
+                    <div class="card border-0 shadow-sm rounded-4 p-4" style="background-color: #ffffff;">
+                        <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4 gap-3 border-bottom pb-3">
+                            <div>
+                                <h5 class="fw-bold mb-1" style="color: #691b31;">Gestiones Enviadas a CFE</h5>
+                                <p class="text-muted small mb-0">Monitoreo de solicitudes turnadas a las zonas de la Comisión Federal de Electricidad</p>
+                            </div>
+
+                            <div class="d-flex align-items-center flex-wrap gap-2 w-100">
+                                <div class="btn-group btn-group-sm me-2" role="group" id="toggle-vista-cfe">
+                                    <button type="button" class="btn btn-sm btn-dark rounded-start-pill px-3 active" id="btn-vista-tarjetas">
+                                        <i class="bi bi-grid-fill me-1"></i>Tarjetas
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-outline-dark rounded-end-pill px-3" id="btn-vista-grafica">
+                                        <i class="bi bi-pie-chart-fill me-1"></i>Gráfica
+                                    </button>
+                                </div>
+
+                                <div class="vr mx-1 d-none d-sm-block" style="height: 24px;"></div>
+
+                                <div class="d-flex align-items-center flex-wrap gap-1 ms-auto" id="contenedor-zonas-cfe">
+                                    <button type="button" class="btn btn-sm rounded-pill px-3 zona-cfe-btn active" data-zona="todas">Todas</button>
+                                    <button type="button" class="btn btn-sm rounded-pill px-3 zona-cfe-btn" data-zona="pachuca">Pachuca</button>
+                                    <button type="button" class="btn btn-sm rounded-pill px-3 zona-cfe-btn" data-zona="tula">Tula</button>
+                                    <button type="button" class="btn btn-sm rounded-pill px-3 zona-cfe-btn" data-zona="tulancingo">Tulancingo</button>
+                                    <button type="button" class="btn btn-sm rounded-pill px-3 zona-cfe-btn" data-zona="ixmiquilpan">Ixmiquilpan</button>
+                                    <button type="button" class="btn btn-sm rounded-pill px-3 zona-cfe-btn" data-zona="huejutla">Huejutla</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- VISTA 1: TARJETAS (EXPEDIENTES) -->
+                        <div class="row g-3" id="tabla-oficios-cfe-body">
+                            <div class="col-12 text-center text-muted py-5">
+                                cargando expediente de oficios...
+                            </div>
+                        </div>
+
+                        <!-- VISTA 2: GRÁFICA (OCULTA POR DEFECTO) -->
+                        <div id="contenedor-grafica-cfe" class="row align-items-center py-3" style="display: none;">
+                            <div class="col-md-7 d-flex justify-content-center">
+                                <div style="position: relative; width: 100%; max-width: 320px; height: 320px;">
+                                    <canvas id="chart-oficios-zona-cfe"></canvas>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <h6 class="fw-bold mb-3" style="color: #691b31;">Desglose por Zona CFE</h6>
+                                <div id="leyenda-zonas-cfe" class="d-flex flex-column gap-2"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+        <!-- footer -->
+        <footer class="app-footer">
+            <span>© 2026 Agencia Estatal de Energía de Hidalgo. todos los derechos reservados.</span>
+            <div class="footer-brand">
+                <img src="img/armas.png" alt="">
+            </div>
+            <div class="footer-links">
+                <a href="aviso-privacidad.html">Aviso de Privacidad</a>
+                <a href="terminos.html">Términos de Uso</a>
+            </div>
+            <div class="footer-brand">
+                <img src="img/dpie.png" alt="dirección de proyectos e infraestructura energética">
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/reportes.js"></script>
+</body>
+</html>

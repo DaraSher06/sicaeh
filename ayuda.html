@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayuda · SICAEH</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="icon" type="image/x-icon" href=" Dorado.png">
+</head>
+<body>
+    <div class="app">
+        <header class="navbar">
+            <div class="navbar-brand">
+                <img src="img/Hidalgo_Economia_AEEH.png" alt="Hidalgo · Economía · AEEH">
+            </div>
+            <nav>
+                <ul class="navbar-links">
+                    <li><a href="dashboard.html">Inicio</a></li>
+                    <li><a href="dashboard.html">Trámites</a></li>
+                    <li><a href="calendario.html">Calendario</a></li>
+                    <li><a href="directorio.html">Directorio</a></li>
+                    <li><a href="ayuda.html" class="is-active">Ayuda</a></li>
+                </ul>
+            </nav>
+            <div class="navbar-actions">
+                <button type="button" class="notif-btn" id="notif-btn" aria-label="Notificaciones">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                    <span class="notif-badge">3</span>
+                </button>
+                <div class="dropdown">
+                    <div class="navbar-user d-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
+                        <div class="avatar" id="user-iniciales">--</div>
+                        <div class="user-meta">
+                            <span id="user-nombre">Cargando...</span>
+                            <span id="user-ubicacion">Cargando...</span>
+                        </div>
+                    </div>
+                    <ul class="dropdown-menu dropdown-menu-end shadow border-0 py-2 mt-2" style="border-radius: 12px; min-width: 180px;">
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center gap-2 text-danger py-2 fw-semibold" href="#" onclick="cerrar_sesion()" style="color: #691b31;">
+                                Cerrar Sesión
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+
+        <main class="registro-container py-4 px-3 px-md-5 container-fluid" style="max-width: 960px;">
+            <h1 class="page-main-title mb-4" style="font-family: 'gmx', serif; font-weight: 900; font-size: 36px;">Ayuda</h1>
+            <div class="card border-0 shadow-sm p-4 mb-3" style="border-radius: 16px;">
+                <h2 class="h5 fw-bold" style="color: #691b31;">Registro y turnado</h2>
+                <p class="mb-0 text-muted">Capture el oficio en <strong>Nuevo Registro</strong> y asígnelo en <strong>Turnar Usuarios</strong>. El personal asignado lo verá en seguimiento con su fecha límite SLA.</p>
+            </div>
+            <div class="card border-0 shadow-sm p-4 mb-3" style="border-radius: 16px;">
+                <h2 class="h5 fw-bold" style="color: #691b31;">Reportes</h2>
+                <p class="mb-0 text-muted">Administrador, supervisor y capturista pueden cambiar entre <strong>reporte general</strong> (toda la agencia) y <strong>reporte individual</strong> (solo lo turnado a su usuario). El rol de consulta solo ve su reporte individual.</p>
+            </div>
+            <div class="card border-0 shadow-sm p-4 mb-3" style="border-radius: 16px;">
+                <h2 class="h5 fw-bold" style="color: #691b31;">Notificaciones</h2>
+                <p class="mb-0 text-muted">La campana muestra trámites vencidos, por vencer o a tiempo. Al hacer clic abre seguimiento sobre ese registro.</p>
+            </div>
+        </main>
+
+        <footer class="app-footer">
+            <span>© 2026 Agencia Estatal de Energía de Hidalgo. Todos los derechos reservados.</span>
+        </footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

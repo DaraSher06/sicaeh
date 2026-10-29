@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turnar Usuarios · SICAEH</title>
+    <!-- bootstrap css -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="icon" type="image/x-icon" href="Dorado.png">
+    <style>
+        .pill-radio {
+            border: 1px solid #dee2e6 !important;
+            background-color: #f8f9fa !important;
+            transition: all 0.2s ease-in-out;
+        }
+        .pill-radio.active-priority {
+            border-color: #691b31 !important;
+            background-color: #ffffff !important;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+
+        <!-- navbar -->
+        <header class="navbar">
+            <div class="navbar-brand">
+                <img src="img/hidalgo_economia_aeeh.png" alt="hidalgo · economía · aeeh">
+            </div>
+
+            <nav>
+                <ul class="navbar-links">
+                    <li><a href="dashboard.html">Inicio</a></li>
+                    <li><a href="dashboard.html" class="is-active">Trámites</a></li>
+                    <li><a href="calendario.html">Calendario</a></li>
+                    <li><a href="directorio.html">Directorio</a></li>
+                    <li><a href="ayuda.html">Ayuda</a></li>
+                </ul>
+            </nav>
+
+            <div class="navbar-actions">
+                <button type="button" class="notif-btn" id="notif-btn" aria-label="Notificaciones">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                    <span class="notif-badge">3</span>
+                </button>
+
+                <div class="dropdown">
+                    <div class="navbar-user d-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
+                        <!-- círculo del avatar -->
+                        <div class="avatar" id="user-iniciales">--</div>
+                        <div class="user-meta">
+                            <!-- nombre principal -->
+                            <span id="user-nombre">cargando...</span>
+
+                            <!-- ubicación -->
+                            <span id="user-ubicacion">cargando...</span>
+                        </div>
+                    </div>
+                    <ul class="dropdown-menu dropdown-menu-end shadow border-0 py-2 mt-2" style="border-radius: 12px; min-width: 180px;">
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center gap-2 text-danger py-2 fw-semibold" href="#" onclick="cerrar_sesion()" style="color: #691b31;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                                Cerrar Sesión
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+        </header>
+
+        <!-- main content -->
+        <main class="registro-container py-4 px-4 px-md-5 container-fluid">
+            <div class="breadcrumb-trail mb-2">
+                <a href="dashboard.html" class="text-decoration-none text-muted">Inicio</a> <span class="mx-1">› <a href="dashboard.html" class="text-decoration-none text-muted">Trámites</a><span class="mx-1">›</span> <span class="fw-semibold" style="color: #691B31;">Turnar Usuarios</span>
+            </div>
+            
+            <h1 class="page-main-title mb-4" style="font-family: 'gmx', serif; font-weight: 900; font-size: 36px; color: #111111;">Turnar Usuarios</h1>
+
+            <div class="card p-4 p-md-5 shadow-sm border-0 mb-5" style="border-radius: 16px; border-top: 6px solid #691b31; background: #ffffff; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;">
+                
+                <div class="mb-4 pb-3 border-bottom">
+                    <h2 class="section-title m-0" style="font-family: 'gmx', serif; font-weight: 700; font-size: 22px; color: #691b31;">Asignación y Control de solicitud</h2>
+                </div>
+
+                <form id="form-turnar-usuario" novalidate>
+                    <input type="hidden" name="id_registro" id="id_registro" value="">
+
+                    <div class="row g-4 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold text-dark small">Número Consecutivo</label>
+                            <div class="input-group bg-light rounded-2 border" style="border-radius: 8px !important;">
+                                <input type="text" id="num_consecutivo" name="num_consecutivo" class="form-control bg-transparent border-0 shadow-none text-dark" readonly style="font-size: 14px;">
+                                <span class="input-group-text bg-transparent border-0 text-muted px-2">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold text-dark small">Fecha de Captura de la DPIE</label>
+                            <div class="input-group bg-light rounded-2 border" style="border-radius: 8px !important;">
+                                <input type="text" id="fecha_captura" name="fecha_captura" class="form-control bg-transparent border-0 shadow-none text-dark" readonly style="font-size: 14px;">
+                                <span class="input-group-text bg-transparent border-0 text-muted px-2">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-4 mb-3 align-items-start">
+                        <div class="col-md-5">
+                            <label class="form-label fw-semibold text-dark small">Asignar Usuario (Responsables)</label>
+                            <div id="contenedor_usuarios" class="border p-2 rounded bg-light" style="max-height: 140px; overflow-y: auto; border-radius: 8px !important;">
+                                <!-- se cargan dinámicamente mediante turnos.js -->
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="dias_atencion" class="form-label fw-semibold text-dark small">Días para Atención</label>
+                            <input type="number" id="dias_atencion" name="dias_atencion" class="form-control" value="5" min="1" placeholder="escriba un número" style="border-radius: 8px; font-size: 14px; height: 38px;">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-semibold text-dark small d-block">Prioridad</label>
+                            <div class="d-flex gap-2 align-items-center">
+                                <div id="pill_alta" class="form-check border rounded-pill px-3 py-1 m-0 pill-radio flex-fill text-center d-flex align-items-center justify-content-center gap-2" style="height: 38px; cursor: pointer;">
+                                    <input class="form-check-input m-0" type="radio" name="tipo" id="prioridad_alta" value="alta" style="width: 14px; height: 14px;">
+                                    <label class="form-check-label small fw-medium text-dark cursor-pointer m-0 d-flex align-items-center gap-1" for="prioridad_alta" style="cursor: pointer;">
+                                        <span class="rounded-circle d-inline-block" style="width: 8px; height: 8px; background-color: #b72065;"></span> Alta
+                                    </label>
+                                </div>
+                                <div id="pill_media" class="form-check border rounded-pill px-3 py-1 m-0 pill-radio active-priority flex-fill text-center d-flex align-items-center justify-content-center gap-2" style="height: 38px; cursor: pointer;">
+                                    <input class="form-check-input m-0" type="radio" name="tipo" id="prioridad_media" value="media" checked style="width: 14px; height: 14px;">
+                                    <label class="form-check-label small fw-semibold text-dark cursor-pointer m-0 d-flex align-items-center gap-1" for="prioridad_media" style="cursor: pointer; color: #691b31;">
+                                        <span class="rounded-circle d-inline-block" style="width: 8px; height: 8px; background-color: #691b31;"></span> Media
+                                    </label>
+                                </div>
+                                <div id="pill_baja" class="form-check border rounded-pill px-3 py-1 m-0 pill-radio flex-fill text-center d-flex align-items-center justify-content-center gap-2" style="height: 38px; cursor: pointer;">
+                                    <input class="form-check-input m-0" type="radio" name="tipo" id="prioridad_baja" value="baja" style="width: 14px; height: 14px;">
+                                    <label class="form-check-label small fw-medium text-dark cursor-pointer m-0 d-flex align-items-center gap-1" for="prioridad_baja" style="cursor: pointer;">
+                                        <span class="rounded-circle d-inline-block" style="width: 8px; height: 8px; background-color: #c77cbf;"></span> Baja
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="tipo_solicitud" class="form-label fw-semibold text-dark small">Tipo de Solicitud</label>
+                        <select id="tipo_solicitud" name="tipo_solicitud" class="form-select" style="border-radius: 8px; font-size: 14px;">
+                            <option value="" disabled selected>Seleccione el Tipo de Solicitud</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold text-dark small">Documento Adjunto</label>
+                        <div class="input-group bg-light rounded-2 border p-1" style="border-radius: 8px !important;">
+                            <span class="input-group-text bg-transparent border-0 text-secondary ps-2">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                            </span>
+                            <input type="text" id="nombre_archivo" class="form-control bg-transparent border-0 shadow-none text-dark" readonly style="font-size: 14px;">
+                            <button type="button" id="btn-ver-documento" class="btn btn-outline-secondary px-3 py-1 me-1" style="border-radius: 6px; font-size: 13px;">Ver Documento</button>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold text-dark small d-block">Estatus de Oficio</label>
+                        <div class="d-flex gap-4 flex-wrap mt-1">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="estatus_oficio" id="estatus_turnado" value="turnado" checked>
+                                <label class="form-check-label small fw-medium text-dark d-flex align-items-center gap-1" for="estatus_turnado">
+                                    <span class="rounded-circle d-inline-block" style="width: 8px; height: 8px; background-color: #226c62;"></span> Turnado
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="estatus_oficio" id="estatus_proceso" value="proceso" disabled>
+                                <label class="form-check-label small fw-medium text-muted d-flex align-items-center gap-1" for="estatus_proceso">
+                                    <span class="rounded-circle d-inline-block" style="width: 8px; height: 8px; background-color: #ffc107; opacity: 0.5;"></span> En Proceso
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="estatus_oficio" id="estatus_atendido" value="atendido" disabled>
+                                <label class="form-check-label small fw-medium text-muted d-flex align-items-center gap-1" for="estatus_atendido">
+                                    <span class="rounded-circle d-inline-block" style="width: 8px; height: 8px; background-color: #198754; opacity: 0.5;"></span> Atendido
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="estatus_oficio" id="estatus_vencido" value="vencido" disabled>
+                                <label class="form-check-label small fw-medium text-muted d-flex align-items-center gap-1" for="estatus_vencido">
+                                    <span class="rounded-circle d-inline-block" style="width: 8px; height: 8px; background-color: #dc3545; opacity: 0.5;"></span> Vencido
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="observaciones" class="form-label fw-semibold text-dark small">Observaciones</label>
+                        <textarea id="observaciones" name="observaciones" class="form-control" rows="3" placeholder="Agregue observaciones o instrucciones adicionales..." style="border-radius: 8px; font-size: 14px; resize: none;"></textarea>
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-3 pt-3 border-top">
+                        <button type="button" class="btn btn-outline-secondary px-4 py-2" style="border-radius: 8px; font-size: 14px;" onclick="window.location.href='dashboard.html'">Cancelar</button>
+                        <button type="submit" class="btn px-4 py-2 text-white fw-semibold" style="background-color: #691b31; border-radius: 8px; font-size: 14px;">Turnar</button>
+                    </div>
+                </form>
+
+            </div>
+        </main>
+
+        <!-- footer -->
+        <footer class="app-footer">
+            <span>© 2026 Agencia Estatal de Energía de Hidalgo. Todos los Derechos Reservados.</span>
+            <div class="footer-brand">
+                <img src="img/armas.png" alt="">
+            </div>
+            <div class="footer-links">
+                <a href="aviso-privacidad.html">Aviso de privacidad</a>
+                <a href="terminos.html">Términos de uso</a>
+            </div>
+            <div class="footer-brand"> 
+                <img src="img/dpie.png" alt="dirección de proyectos e infraestructura energética">
+            </div>
+        </footer>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/turnos.js"></script>
+    <script src="js/alertas.js"></script>
+</body>
+</html>

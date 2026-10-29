@@ -1,0 +1,21 @@
+/* Estilos adicionales para la zona de carga de archivos */
+.upload-dropzone {
+    border: 2px dashed #d1c7c7 !important;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.upload-dropzone:hover {
+    background-color: rgba(105, 27, 49, 0.02) !important;
+    border-color: #691B31 !important;
+}
+
+/* Ajustes limpios para campos y selects */
+.form-control:focus,
+.form-select:focus {
+    border-color: #691B31;
+    box-shadow: 0 0 0 0.25rem rgba(105, 27, 49, 0.15);
+}
+
+select.form-select {
+    text-transform: capitalize;
+}
